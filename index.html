@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123c55">
+  <title>Sistema Dental | Dr. Walter Fuentes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="Logo de la clínica">
+      <div>
+        <strong>DR. WALTER FUENTES</strong>
+        <small>CLÍNICA DENTAL</small>
+      </div>
+    </div>
+
+    <div class="menu-label">MENÚ PRINCIPAL</div>
+
+    <nav>
+      <button class="nav-link active" data-view="dashboard">
+        <span>▦</span> Panel principal
+      </button>
+      <button class="nav-link" data-view="patients">
+        <span>♙</span> Pacientes
+      </button>
+      <button class="nav-link" data-view="register">
+        <span>＋</span> Nuevo paciente
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="status-dot"></span>
+      Sistema de administración
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <div>
+        <strong>Administración clínica</strong>
+        <small id="today"></small>
+      </div>
+      <div class="user-avatar">WF</div>
+    </header>
+
+    <section class="content">
+
+      <!-- PANEL PRINCIPAL -->
+      <section class="view" id="dashboard">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">BIENVENIDO</span>
+            <h1>Panel principal</h1>
+            <p>Resumen de la gestión de pacientes.</p>
+          </div>
+          <button class="primary-btn" data-go="register">
+            + Nuevo paciente
+          </button>
+        </div>
+
+        <div class="stats">
+          <article class="stat-card">
+            <div class="stat-icon blue">♙</div>
+            <div>
+              <span>Total de pacientes</span>
+              <h2 id="totalPatients">0</h2>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon gold">✓</div>
+            <div>
+              <span>Pacientes activos</span>
+              <h2 id="activePatients">0</h2>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon green">◷</div>
+            <div>
+              <span>Registros pendientes</span>
+              <h2 id="pendingPatients">0</h2>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Pacientes recientes</h2>
+              <p>Últimos pacientes registrados</p>
+            </div>
+            <button class="secondary-btn" data-go="patients">
+              Ver todos
+            </button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Paciente</th>
+                  <th>Teléfono</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="recentTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTRO -->
+      <section class="view hidden" id="register">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">EXPEDIENTES</span>
+            <h1>Registro de pacientes</h1>
+            <p>Ingrese los datos personales y odontológicos.</p>
+          </div>
+        </div>
+
+        <form id="patientForm" class="panel">
+          <div class="section-heading">
+            <span>01</span>
+            <div>
+              <h2>Información Personal</h2>
+              <p>Datos de identificación del paciente</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>ID Paciente</label>
+              <input id="patientId" class="readonly" readonly>
+            </div>
+
+            <div class="field">
+              <label>Nombre *</label>
+              <input id="nombre" required placeholder="Nombre del paciente">
+            </div>
+
+            <div class="field">
+              <label>Apellidos *</label>
+              <input id="apellidos" required placeholder="Apellidos">
+            </div>
+
+            <div class="field">
+              <label>DUI</label>
+              <input id="dui" placeholder="00000000-0">
+            </div>
+
+            <div class="field">
+              <label>Teléfono</label>
+              <input id="telefono" type="tel" placeholder="0000-0000">
+            </div>
+
+            <div class="field">
+              <label>Fecha de registro *</label>
+              <input id="fecha" type="date" required>
+            </div>
+
+            <div class="field full">
+              <label>Dirección</label>
+              <input id="direccion" placeholder="Dirección del paciente">
+            </div>
+
+            <div class="field">
+              <label>Ciudad</label>
+              <input id="ciudad" placeholder="Ciudad">
+            </div>
+          </div>
+
+          <div class="section-heading clinical-heading">
+            <span>02</span>
+            <div>
+              <h2>Información Clínica</h2>
+              <p>Datos del tratamiento odontológico</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>Médico asignado</label>
+              <input id="medico" placeholder="Nombre del médico">
+            </div>
+
+            <div class="field">
+              <label>Estado</label>
+              <select id="estado">
+                <option value="Activo">Activo</option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Finalizado">Finalizado</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label>Procedimientos</label>
+              <textarea id="procedimientos" rows="4"
+                placeholder="Describa los procedimientos realizados o planificados"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="secondary-btn">Limpiar formulario</button>
+            <button type="submit" class="primary-btn">Guardar paciente</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- PACIENTES -->
+      <section class="view hidden" id="patients">
+        <div class="page-heading">
+          <div>
+            <span class="eyebrow">BASE DE DATOS</span>
+            <h1>Pacientes registrados</h1>
+            <p>Consulta y administración de expedientes.</p>
+          </div>
+          <button class="primary-btn" data-go="register">
+            + Nuevo paciente
+          </button>
+        </div>
+
+        <div class="panel">
+          <div class="toolbar">
+            <input id="searchInput" placeholder="Buscar por nombre, DUI o ID...">
+            <button class="export-btn" id="exportBtn">↓ Exportar CSV</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Paciente</th>
+                  <th>DUI</th>
+                  <th>Teléfono</th>
+                  <th>Fecha</th>
+                  <th>Médico</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="patientTable"></tbody>
+            </table>
+          </div>
+          <p class="table-count" id="tableCount">0 pacientes</p>
+        </div>
+      </section>
+
+    </section>
+
+    <footer>
+      Clínica Dental Dr. Walter Fuentes · Sistema interno
+    </footer>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
